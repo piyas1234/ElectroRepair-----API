@@ -40,6 +40,12 @@ client.connect((err) => {
       res.send(result);
     });
   });
+
+  app.get("/reviews",(req,res)=>{
+    reviews.find().toArray((err,data)=>{
+      !err && res.send(data)
+    })
+  })
   
   app.post("/addServices", (req, res) => {
     const service = req.body;
