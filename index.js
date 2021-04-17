@@ -61,7 +61,13 @@ client.connect((err) => {
   });
 
 
-  app.delete("/services/:id",(req,res)=>{
+  app.get("/services/:id",(req,res)=>{
+    serviceCollection.findOne({_id:ObjectId(req.params.id)}).then(result=>{
+      res.send(result)
+    })
+  })
+  
+ app.delete("/services/:id",(req,res)=>{
     serviceCollection.deleteOne({_id:ObjectId(req.params.id)}).then(result=>{
       res.send(result)
     })
@@ -69,7 +75,7 @@ client.connect((err) => {
 
   app.post("/myServices", (req, res) => {
     const email = req.body.email;
-    serviceCollection.find({ email: email }).toArray((err, services) => {
+    serviceCollection.find({ email: email}).toArray((err, services) => {
       res.send(services);
     });
   });
